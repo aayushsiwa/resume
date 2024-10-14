@@ -1,29 +1,51 @@
-name: release resume
+name: Release Resume
 
 on:
   release:
-    types:[published]
+    types: [ published ]
+
+permissions:
+  contents: write
+  id-token: write
+  pages: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Build the LaTeX resume using a gihub action
+      # Build the LaTex resume using a GitHub Action
       - name: LaTeX Action
         uses: fudan-mse/latex-action@v0.0.1
         with:
           root_file: resume.tex
-          # working_directory: # optional
-          # compiler: # optional, default is latexmk
-          # args: # optional, default is -pdf -file-line-error -interaction=nonstopmode
-          # extra_packages: # optional
-          # extra_system_packages: # optional
-      
-      - name: Upload the resume to the github release that triggered the workflow
+
+      - name: Upload resume to the GitHub release that triggered the workflow
         run: |
-          gh release upload ${{github.event.release.tag_name}} resume.pdf
-          gh release upload ${{github.event.release.tag_name}} resume.tex
+          gh release upload ${{ github.event.release.tag_name }} resume.pdf
+          gh release upload ${{ github.event.release.tag_name }} resume.tex
         env:
-          GH_TOKEN:${{github.token}}
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Move resume.pdf to a different folder
+        run: |
+          mkdir ../gh-pages
+          mv resume.pdf ../gh-pages
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ../gh-pages
+
+      # - name: Upload a Build Artifact
+      #   uses: actions/upload-artifact@v4.4.2
+      #   with:
+      #     name: github-pages
+      #     path: ./
+
+      # - name: Upload resume to GitHub Pages
+      #   uses: actions/deploy-pages@v4.0.5
+      #   with:
+      #     # Name of the artifact to deploy
+      #     artifact_name: github-pages
