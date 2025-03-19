@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Siwach</title>
+    <title>PDF Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,33 +23,55 @@
             display: flex;
             flex-direction: column;
         }
-        .pdf-container {
-            flex: 1;
+        #pdfViewer {
             width: 100%;
             height: 100%;
-            border: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            background-color: #525659;
         }
-        embed {
-            width: 100%;
-            height: 100%;
-            border: none;
+        #pdfCanvas {
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="pdf-container">
-            <embed
-                id="pdfEmbed"
-                type="application/pdf"
-                width="100%"
-                height="100%"
-                src="resume.pdf"
-            />
+        <div id="pdfViewer">
+            <canvas id="pdfCanvas"></canvas>
         </div>
     </div>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const url = 'resume.pdf';
+        const loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function(pdf) {
+            console.log('PDF loaded');
+            pdf.getPage(1).then(function(page) {
+                console.log('Page loaded');
+                
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale: scale });
+
+                const canvas = document.getElementById('pdfCanvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                
+                page.render(renderContext).promise.then(function() {
+                    console.log('Page rendered');
+                });
+            });
+        }, function(error) {
+            console.error('Error loading PDF: ' + error);
+        });
+    </script>
 </body>
 </html>
