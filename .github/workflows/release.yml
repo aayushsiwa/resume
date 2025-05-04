@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir ../gh-pages
           mv resume.pdf ../gh-pages
+          cp index.html ../gh-pages
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
