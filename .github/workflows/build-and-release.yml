@@ -17,19 +17,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Build the LaTeX resume using a GitHub Actions
+      # Build the LaTeX resume using a modern GitHub Action
       - name: LaTeX Action
-        uses: fudan-mse/latex-action@v0.0.1
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: cv-lt.tex
-          extra_packages: bibentry natbib  # For bibliography support due to own-bib.bib
+          extra_packages: texlive-fonts-extra bibentry natbib  # Added texlive-fonts-extra for potential font dependencies
           args: -pdf -file-line-error -interaction=nonstopmode
+          latexmk_use_lualatex: true  # Use LuaLaTeX for better font and package support
 
       # Debug step: Show LaTeX logs if compilation fails
       - name: Show LaTeX logs on failure
         if: failure()
         run: |
-          cat cv-lt.log
+          cat cv-lt.log || echo "Log file not found."
 
       # Upload artifact on push to master
       - name: Upload a Build Artifact
