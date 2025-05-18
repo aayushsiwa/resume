@@ -1,0 +1,64 @@
+name: Build and Release Resume
+
+on:
+  push:
+    branches: [ "master" ]
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+  id-token: write
+  pages: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Build the LaTeX resume using a GitHub Actions
+      - name: LaTeX Action
+        uses: fudan-mse/latex-action@v0.0.1
+        with:
+          root_file: cv-lt.tex
+          extra_packages: bibentry natbib  # For bibliography support due to own-bib.bib
+          args: -pdf -file-line-error -interaction=nonstopmode
+
+      # Debug step: Show LaTeX logs if compilation fails
+      - name: Show LaTeX logs on failure
+        if: failure()
+        run: |
+          cat cv-lt.log
+
+      # Upload artifact on push to master
+      - name: Upload a Build Artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: cv-lt.pdf
+          path: cv-lt.pdf
+
+      # Upload to GitHub Release if triggered by a release event
+      - name: Upload resume to GitHub Release
+        if: github.event_name == 'release'
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} cv-lt.pdf
+          gh release upload ${{ github.event.release.tag_name }} cv-lt.tex
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # Prepare files for GitHub Pages deployment during release
+      - name: Move files for GitHub Pages
+        if: github.event_name == 'release'
+        run: |
+          mkdir -p ../gh-pages
+          mv cv-lt.pdf ../gh-pages/resume.pdf
+          cp index.html ../gh-pages
+
+      # Deploy to GitHub Pages during release
+      - name: Deploy to GitHub Pages 🚀
+        if: github.event_name == 'release'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ../gh-pages
