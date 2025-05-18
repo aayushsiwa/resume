@@ -1,0 +1,165 @@
+\documentclass[letterpaper,11pt]{article}
+% -------------------- PACKAGES --------------------
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{helvet}
+\usepackage{paracol}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{pifont}
+\usepackage{multicol}
+\usepackage{tikz} % Required for the skill bars
+% -------------------- CUSTOM COLORS --------------------
+\definecolor{mainblue}{RGB}{25, 65, 150}
+\definecolor{darkgray}{RGB}{70, 70, 70}
+\definecolor{lightgray}{RGB}{220, 220, 220}
+% -------------------- FONT & LAYOUT --------------------
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\oddsidemargin}{-0.75in}
+\addtolength{\evensidemargin}{-0.75in}
+\addtolength{\textwidth}{1.5in}
+\addtolength{\topmargin}{-0.8in}
+\addtolength{\textheight}{1.6in}
+% Section formatting with improved styling
+\titleformat{\section}{\Large\bfseries\color{mainblue}}{}{0em}{}[{\color{mainblue}\titlerule[1.5pt]\vspace{-4pt}}]
+\titleformat{\subsection}{\large\bfseries\color{darkgray}}{}{0em}{}
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titlespacing*{\subsection}{0pt}{5pt}{2pt}
+% Custom bullet symbol
+\newcommand{\customitem}{\item[\color{mainblue}\ding{2}]}
+% Custom commands
+\newcommand{\resumeItem}[1]{\customitem\small{#1 \vspace{-1pt}}}
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{\color{darkgray}#1} & #2 \\
+      \textit{\small\color{darkgray}#3} & \\
+      % \textit{\small\color{mainblue}#4} & \\
+    \end{tabular*}\vspace{-5pt}
+}
+\newcommand{\resumeProjectHeading}[2]{
+  \item
+  \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    \small\textbf{\color{darkgray}#1} & #2 \\
+  \end{tabular*}\vspace{-2pt}
+}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, itemsep=6pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, label={}, itemsep=3pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
+% Skill bar command
+\newcommand{\skillbar}[2]{
+  \textbf{#1} \hfill
+  \begin{tikzpicture}[baseline=0.5ex]
+    \fill[lightgray] (0,0) rectangle (5,0.25);
+    \fill[mainblue] (0,0) rectangle (#2,0.25);
+  \end{tikzpicture}\\[-0.2cm]
+}
+% -------------------- DOCUMENT --------------------
+\begin{document}
+% -------------------- HEADER --------------------
+\begin{center}
+    {\Huge \textbf{\textcolor{mainblue}{Aayush Siwach}}} \\
+    \vspace{6pt}
+    \small
+    \textcolor{darkgray}{
+    % \faEnvelope\ \href{mailto:aayush@aayushsiwa.is-a.dev}{aayush@aayushsiwa.is-a.dev} \ | \
+    \faGithub\ \href{https://github.com/aayushsiwa}{github.com/aayushsiwa} \ | \
+    \faLinkedin\ \href{https://linkedin.com/in/aayush-siwach}{linkedin.com/in/aayush-siwach} \ | \
+    \faGlobe\ \href{https://aayushsiwa.is-a.dev}{aayushsiwa.is-a.dev}}
+\end{center}
+\vspace{-4pt}
+\begin{paracol}{2}
+% ======= LEFT COLUMN =======
+\section{Education}
+\resumeSubHeadingListStart
+\vspace{1pt}
+  \resumeSubheading
+    {Kalinga Institute of Industrial Technology}{}
+    {B.Tech in Computer Science \& Engineering -- 2022-26}{}
+  \resumeSubheading
+    {Army Public School, Narangi}{}
+    {Class XII (Senior Secondary) -- 2022}{}
+\resumeSubHeadingListEnd
+\section{Skills}
+\resumeItemListStart
+\vspace{1pt}
+  \resumeItem{\textbf{Languages} \textcolor{darkgray}{-- C/C++, Java, Python, JavaScript, TypeScript, HTML/CSS}}
+  \resumeItem{\textbf{Databases} \textcolor{darkgray}{-- MongoDB, PostgreSQL, MySQL, Supabase}}
+  \resumeItem{\textbf{Frontend} \textcolor{darkgray}{-- React, Next.js, TailwindCSS}}
+  \resumeItem{\textbf{Backend} \textcolor{darkgray}{-- Node.js, Django, Flask, FastAPI}}
+  \resumeItem{\textbf{Tools} \textcolor{darkgray}{-- Git, Docker, AWS, Google Cloud}}
+  % Optional: Uncomment to add skill bars
+  % \skillbar{Python}{4.5}
+  % \skillbar{JavaScript}{4.0}
+  % \skillbar{React}{3.5}
+  % \skillbar{Node.js}{3.5}
+  % \skillbar{Docker}{3.0}
+\resumeItemListEnd
+\section{Certifications}
+\resumeItemListStart
+\vspace{2pt}
+  \resumeItem{\textbf{AWS Cloud Foundations} \textcolor{darkgray}{-- AWS Academy}}
+  \resumeItem{\textbf{Introduction to Generative AI} \textcolor{darkgray}{-- Google Cloud Skills Boost}}
+  \resumeItem{\textbf{React Front-End Development} \textcolor{darkgray}{-- Coursera (HKUST)}}
+  \resumeItem{\textbf{Python for Everybody} \textcolor{darkgray}{-- Coursera (University of Michigan)}}
+  \resumeItem{\textbf{Python Data Structures} \textcolor{darkgray}{-- Coursera (University of Michigan)}}
+  \resumeItem{\textbf{Introduction to Data Science} \textcolor{darkgray}{-- Coursera (University of Washington)}}
+  \resumeItem{\textbf{Data Analysis with Python} \textcolor{darkgray}{-- freeCodeCamp}}
+  \resumeItem{\textbf{Responsive Web Design} \textcolor{darkgray}{-- freeCodeCamp}}
+\resumeItemListEnd
+\switchcolumn
+% ======= RIGHT COLUMN =======
+\section{Projects}
+\resumeSubHeadingListStart
+  \resumeProjectHeading
+    {\textbf{\href{https://jovian-alpha.vercel.app/}{Job Listing Platform \faExternalLink}} \ \textcolor{mainblue}{|} \ \footnotesize\emph{Flask, PostgreSQL, HTML/CSS}}{}
+  \resumeItemListStart
+    \resumeItem{\textcolor{darkgray}{Built a full-stack job board with auth, search, and application tracking}}
+    \resumeItem{\textcolor{darkgray}{Optimized database queries and designed mobile-friendly UI}}
+    \resumeItem{\href{https://github.com/aayushsiwa/jovian}{\textcolor{mainblue}{\faGithub} GitHub Repository}}
+  \resumeItemListEnd
+  \resumeProjectHeading
+    {\textbf{\href{https://robofleet-dashboard.vercel.app}{Robofleet Dashboard \faExternalLink}} \ \textcolor{mainblue}{|} \ \footnotesize\emph{FastAPI, React, TailwindCSS}}{}
+  \resumeItemListStart
+    \resumeItem{\textcolor{darkgray}{Interactive dashboard to monitor/control robotic fleets in real-time}}
+    \resumeItem{\textcolor{darkgray}{Used React with WebSocket for dynamic updates and control panels}}
+    \resumeItem{\href{https://github.com/aayushsiwa/robofleet-dashboard}{\textcolor{mainblue}{\faGithub} GitHub Repository}}
+  \resumeItemListEnd
+  \resumeProjectHeading
+    {\textbf{\href{https://ros-log-viewer-as.vercel.app/}{ROS Log Viewer \faExternalLink}} \ \textcolor{mainblue}{|} \ \footnotesize\emph{FastAPI, React, TailwindCSS}}{}
+  \resumeItemListStart
+    \resumeItem{\textcolor{darkgray}{Web viewer for Robot Operating System (ROS) logs with search/filter}}
+    \resumeItem{\textcolor{darkgray}{Designed interface for navigating and visualizing nested log data}}
+    \resumeItem{\href{https://github.com/aayushsiwa/ros-log-viewer}{\textcolor{mainblue}{\faGithub} GitHub Repository}}
+  \resumeItemListEnd
+  \resumeProjectHeading
+    {\textbf{\href{https://iot-asset-tracking.vercel.app/}{IoT Asset Tracking \faExternalLink}} \ \textcolor{mainblue}{|} \ \footnotesize\emph{Next.js, Supabase}}{}
+  \resumeItemListStart
+    \resumeItem{\textcolor{darkgray}{Asset tracking platform using live data from IoT sensors and Supabase}}
+    \resumeItem{\textcolor{darkgray}{Integrated map view and real-time asset updates}}
+    \resumeItem{\href{https://github.com/aayushsiwa/iot-asset-tracking}{\textcolor{mainblue}{\faGithub} GitHub Repository}}
+  \resumeItemListEnd
+  \resumeProjectHeading
+    {\textbf{\href{https://genietalks.vercel.app}{GenieTalks \faExternalLink}} \ \textcolor{mainblue}{|} \ \footnotesize\emph{React, TailwindCSS, Gemini API}}{}
+  \resumeItemListStart
+    \resumeItem{\textcolor{darkgray}{AI-powered chatbot using Gemini API with modern UI/UX}}
+    \resumeItem{\textcolor{darkgray}{Supports conversation history and mobile responsiveness}}
+    \resumeItem{\href{https://github.com/aayushsiwa/genie-talks}{\textcolor{mainblue}{\faGithub} GitHub Repository}}
+  \resumeItemListEnd
+\resumeSubHeadingListEnd
+\end{paracol}
+\end{document}
