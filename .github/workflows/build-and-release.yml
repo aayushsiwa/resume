@@ -21,7 +21,7 @@ jobs:
       - name: LaTeX Action
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: cv-llt.tex
+          root_file: cv-lt.tex
           extra_packages: texlive-fonts-extra bibentry natbib cochineal cabin inconsolata  # Added font packages
           args: -pdf -file-line-error -interaction=nonstopmode
           latexmk_use_lualatex: true  # Use LuaLaTeX for fontspec support
@@ -30,22 +30,22 @@ jobs:
       - name: Show LaTeX logs on failure
         if: failure()
         run: |
-          cat cv-llt.log || echo "Log file not found."
+          cat cv-lt.log || echo "Log file not found."
 
       # Upload artifact on push to master
       - name: Upload a Build Artifact
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v4.4.3
         with:
-          name: cv-llt.pdf
-          path: cv-llt.pdf
+          name: cv-lt.pdf
+          path: cv-lt.pdf
 
       # Upload to GitHub Release if triggered by a release event
       - name: Upload resume to GitHub Release
         if: github.event_name == 'release'
         run: |
-          gh release upload ${{ github.event.release.tag_name }} cv-llt.pdf
-          gh release upload ${{ github.event.release.tag_name }} cv-llt.tex
+          gh release upload ${{ github.event.release.tag_name }} cv-lt.pdf
+          gh release upload ${{ github.event.release.tag_name }} cv-lt.tex
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -54,7 +54,7 @@ jobs:
         if: github.event_name == 'release'
         run: |
           mkdir -p ../gh-pages
-          mv cv-llt.pdf ../gh-pages/resume.pdf
+          mv cv-lt.pdf ../gh-pages/resume.pdf
           cp index.html ../gh-pages
 
       # Deploy to GitHub Pages during release
