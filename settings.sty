@@ -102,7 +102,17 @@
 \urlstyle{tt}
 
 \newcommand{\prefixmarker}[1]{\def\@prefixmarker{#1}}
-\def\@prefixmarker{\relscale{.9}\faBookmark}
+\def\@prefixmarker{\relscale{.9}\faCaretRight}
+
+\newenvironment{noprefixrubric}[1]{%
+  \begingroup
+  \prefixmarker{}%
+  \begin{rubric}{#1}%
+}{%
+  \end{rubric}%
+  \endgroup
+}
+
 
 \prefix{%
   \hspace*{-1ex}
